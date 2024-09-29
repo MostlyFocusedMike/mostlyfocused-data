@@ -1,0 +1,22 @@
+ul, ol, li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+
+.small-text {
+  font-size: 0.8rem;
+}
+
+#visit-list {
+  height: 40rem;
+  overflow: scroll;
+}
+
+.visit-card {
+  width: 20rem;
+  border: 2px solid black;
+  padding: 1rem;
+  flex-grow: 1;
+}
