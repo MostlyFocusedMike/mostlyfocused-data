@@ -87,3 +87,5 @@ export const $p = (value) => {
     return false;
   }
 }
+
+export const trimSite = (siteName) => siteName?.replace(/https?:\/\/(www.)?/, '');

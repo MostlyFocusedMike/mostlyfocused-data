@@ -15,14 +15,14 @@ const calculatePageData = (visits) => {
 
 const renderTableRow = ({ route, visits, uniqueVisits }) => {
   return /*html*/`<tr>
-    <td>${route}</td>
     <td>${visits}</td>
     <td>${uniqueVisits}</td>
+    <td>${route}</td>
   </tr>`;
 };
 
 export default function renderRouteViewCountTable(visits) {
-  const container = document.querySelector('#page-view-count-container');
+  const container = document.querySelector('#route-view-count-container');
 
   const pageData = Object.values(calculatePageData(visits))
   pageData.sort((a,b) => {
@@ -35,13 +35,13 @@ export default function renderRouteViewCountTable(visits) {
   })
   console.log('pageData:', pageData);
   container.innerHTML = /*html*/`
-    <section aria-describedby="page-view-count-header">
-      <h2 id='page-view-count-header'>Page View Count</h2>
+    <section aria-describedby="route-view-count-header">
+      <h2 id='route-view-count-header'>Page View Count</h2>
       <table>
         <tr>
-          <th>Page</th>
           <th>Visits</th>
-          <th>Unique Visits</th>
+          <th>(Unique)</th>
+          <th>Page</th>
         </tr>
         ${$m(pageData, renderTableRow)}
       </table>
