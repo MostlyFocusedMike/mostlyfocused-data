@@ -23,13 +23,13 @@ const renderMain = () => {
 const main = async () => {
   renderMain();
 
-  const [err, { visits }] = await fetchHandler('http://localhost:3000/api/hosts/1/visits');
+  const [err, { visits }] = await fetchHandler('/api/hosts/1/visits');
   if (err) return
   console.log('visits:', visits);
 
   renderVisitCards(visits);
   renderRouteViewCountTable(visits);
   renderReferrerCountTable(visits)
-}
+};
 
 main();

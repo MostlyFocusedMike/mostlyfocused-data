@@ -1,6 +1,10 @@
-export default async function fetchHandler(url) {
+export default async function fetchHandler(route) {
+  const host = import.meta.env.DEV
+    ? 'http://localhost:3000'
+    : 'https://traffic.mostlyfocused.com'
+
   try {
-    const response = await fetch(url);
+    const response = await fetch(host + route);
     const { ok, status, statusText, headers } = response;
     if (!ok) throw new Error(`Fetch failed with status - ${status}, ${statusText}`);
 
