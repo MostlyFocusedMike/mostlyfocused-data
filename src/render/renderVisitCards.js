@@ -16,7 +16,7 @@ export default function renderVisitCards(visits) {
   container.innerHTML = /*html*/`
     <section aria-describedby="visit-card-header">
       <h2 id='visit-card-header'>Visit Cards</h2>
-      <ul>
+      <ul id="visit-cards">
         ${$m(visits, renderVisitCard)}
       </ul>
     </section>

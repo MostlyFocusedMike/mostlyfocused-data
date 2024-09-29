@@ -3,6 +3,11 @@ import renderReferrerCountTable from './render/renderReferrerTable';
 import renderRouteViewCountTable from './render/renderRouteViewTable';
 import renderVisitCards from './render/renderVisitCards';
 import './style.css'
+import { addVisits } from './store'
+
+import RouteInfoModal from './components/RouteInfoModal';
+
+customElements.define('route-modal', RouteInfoModal);
 
 const renderMain = () => {
   const appEl = document.querySelector('#app')
@@ -26,6 +31,7 @@ const main = async () => {
   const [err, { visits }] = await fetchHandler('/api/hosts/1/visits');
   if (err) return
   console.log('visits:', visits);
+  addVisits(visits);
 
   renderVisitCards(visits);
   renderRouteViewCountTable(visits);

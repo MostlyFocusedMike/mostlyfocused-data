@@ -1,4 +1,5 @@
 import { $m } from "../utils";
+import renderRouteInfoModal from "./renderRouteInfoModal";
 
 const calculatePageData = (visits) => {
   return visits.reduce((acc, { ipUuid, route }) => {
@@ -15,9 +16,9 @@ const calculatePageData = (visits) => {
 
 const renderTableRow = ({ route, visits, uniqueVisits }) => {
   return /*html*/`<tr>
-    <td>${visits}</td>
-    <td>${uniqueVisits}</td>
-    <td>${route}</td>
+  <td>${visits}</td>
+  <td>${uniqueVisits}</td>
+  <td><route-modal>${route}</route-modal></td>
   </tr>`;
 };
 
@@ -31,7 +32,7 @@ export default function renderRouteViewCountTable(visits) {
       const textB = b.route.toUpperCase();
       return (textB < textA) ? -1 : (textB > textA) ? 1 : 0;
     }
-    return b.visits - a.visits
+    return b.visits - a.visits;
   })
 
   const totalVisits = pageData.reduce((a, { visits }) => a + visits, 0);
