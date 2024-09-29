@@ -1,5 +1,4 @@
 import { $m } from "../utils";
-import renderRouteInfoModal from "./renderRouteInfoModal";
 
 const calculatePageData = (visits) => {
   return visits.reduce((acc, { ipUuid, route }) => {

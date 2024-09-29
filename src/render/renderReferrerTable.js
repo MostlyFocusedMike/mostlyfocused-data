@@ -14,7 +14,11 @@ const calculatePageData = (visits) => {
 const renderTableRow = ({ referrer, hits }) => {
   return /*html*/`<tr>
   <td>${hits}</td>
-    <td title="${trimSite(referrer)}">${trimSite(referrer)}</td>
+    <td>
+      <referrer-modal data-referrer=${referrer}>
+        ${trimSite(referrer)}
+      </referrer-modal>
+    </td>
   </tr>`;
 };
 

@@ -5,9 +5,13 @@ import renderVisitCards from './render/renderVisitCards';
 import './style.css'
 import { addVisits } from './store'
 
-import RouteInfoModal from './components/RouteInfoModal';
+import RouteInfoModal from './components/modals/RouteInfoModal';
+import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
+import CloseModalButton from './components/modals/CloseModalButton';
 
 customElements.define('route-modal', RouteInfoModal);
+customElements.define('referrer-modal', ReferrerInfoModal);
+customElements.define('close-modal', CloseModalButton);
 
 const renderMain = () => {
   const appEl = document.querySelector('#app')

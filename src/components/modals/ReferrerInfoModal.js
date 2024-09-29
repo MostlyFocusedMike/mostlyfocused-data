@@ -1,5 +1,5 @@
-import { getVisitByRoute } from "../store";
-import makeReferrerCountsTable from "../templates/makeReferrerTable";
+import { getVisitByReferrer } from "../../store";
+import makeRouteCountsTable from "../../templates/makeSimpleRouteCountsTable";
 
 const handleBackdropClick = (modal) => (e) => {
   if (!e.target.matches('dialog')) return;
@@ -16,30 +16,30 @@ const handleBackdropClick = (modal) => (e) => {
   if (clickedOutsideOfModalBox) modal.close();
 }
 
-export default class RouteInfoModal extends HTMLElement {
+export default class ReferrerInfoModal extends HTMLElement {
   connectedCallback() {
-    this.route = this.childNodes[0].textContent;
+    this.displayReferrer = this.childNodes[0].textContent;
 
     this.render();
   }
 
   render() {
-    const routeVisits = getVisitByRoute(this.route);
+    const referrerHits = getVisitByReferrer(this.dataset.referrer);
 
     this.innerHTML = '';
 
     const button = document.createElement('button');
-    button.textContent = this.route;
+    button.textContent = this.displayReferrer;
 
     const modal = document.createElement('dialog');
     modal.innerHTML = /*html*/`
-      <form method="dialog"><button aria-label='close'>X</button></form>
-      <h2>${this.route}</h2>
-      ${makeReferrerCountsTable(routeVisits)}
+      <close-modal></close-modal>
+      <h2>${this.displayReferrer}</h2>
+      ${makeRouteCountsTable(referrerHits)}
     `;
 
     button.onclick = () => modal.showModal();
-    modal.addEventListener('click', handleBackdropClick(modal));
+    modal.onclick = handleBackdropClick(modal);
 
     this.append(button, modal);
   }

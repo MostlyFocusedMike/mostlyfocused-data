@@ -14,3 +14,8 @@ export const getVisitByRoute = (route) => {
   const visits = structuredClone(store.visits);
   return visits.filter((visit) => visit.route === route)
 }
+
+export const getVisitByReferrer = (referrer) => {
+  const visits = structuredClone(store.visits);
+  return visits.filter((visit) => visit.referrer === referrer)
+}
