@@ -33,7 +33,10 @@ export default function renderRouteViewCountTable(visits) {
     }
     return b.visits - a.visits
   })
-  console.log('pageData:', pageData);
+
+  const totalVisits = pageData.reduce((a, { visits }) => a + visits, 0);
+  const totalUnique = pageData.reduce((a,v) => a + v.uniqueVisits, 0);
+
   container.innerHTML = /*html*/`
     <section aria-describedby="route-view-count-header">
       <h2 id='route-view-count-header'>Page View Count</h2>
@@ -43,8 +46,20 @@ export default function renderRouteViewCountTable(visits) {
           <th>(Unique)</th>
           <th>Page</th>
         </tr>
+        <tr>
+          <td>${totalVisits}</td>
+          <td>${totalUnique}</td>
+          <td>Total</td>
+        </tr>
         ${$m(pageData, renderTableRow)}
       </table>
+      <h3>What's a visit?</h3>
+      <p>
+        Visits are the number of page loads, and unique visits is the number of different IP addresses that have loaded the site. So a person loading the the page 10 times over the month, that +10 visits, but +1 visitor.
+      </p>
+      <p>
+        That goes by page, so one user loading every page once would be +1 visit to each page and +1 unique visit to each page as well.
+      </p>
     </section>
   `;
 }

@@ -20,7 +20,6 @@ const renderTableRow = ({ referrer, hits }) => {
 
 export default function renderReferrerCountTable(visits) {
   const container = document.querySelector('#referrer-count-container');
-  console.log('container:', container);
 
   const referrerData = Object.values(calculatePageData(visits))
   referrerData.sort((a,b) => {
@@ -31,7 +30,7 @@ export default function renderReferrerCountTable(visits) {
     }
     return b.hits - a.hits
   })
-  console.log('pageData:', referrerData);
+
   container.innerHTML = /*html*/`
     <section aria-describedby="referrer-count-header">
       <h2 id='referrer-count-header'>Referrer Count</h2>
