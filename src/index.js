@@ -1,4 +1,5 @@
 import fetchHandler from './fetchHandler'
+import renderRouteViewCountTable from './render/renderRouteViewTables';
 import renderVisitCards from './render/renderVisitCards';
 import './style.css'
 
@@ -11,6 +12,7 @@ const renderMain = () => {
         <h1>MostlyFocused on Data</h1>
         <p>Site traffic analysis</p>
       </hgroup>
+      <div id='page-view-count-container'></div>
       <div id='visit-cards-container'></div>
     </main>
   `;
@@ -24,6 +26,7 @@ const main = async () => {
   console.log('visits:', visits);
 
   renderVisitCards(visits);
+  renderRouteViewCountTable(visits);
 }
 
 main();
