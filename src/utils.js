@@ -51,11 +51,11 @@ export const timeStr = (dateString) => {
 export const dateStr = (dateString) => {
   const date = new Date(dateString);
 
-  const month = date.getMonth() + 1; // getMonth() returns 0-11
+  const month = date.getMonth() + 1;
   const day = date.getDate();
-  const year = date.getFullYear().toString().slice(-2);
+  const dayOfWeek = new Date(date).toLocaleDateString('en-us', { weekday: 'long'});
 
-  return `${month}/${day}/${year}`;
+  return `${dayOfWeek[0]}, ${month}/${day}`;
 }
 
 

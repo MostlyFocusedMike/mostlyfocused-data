@@ -3,9 +3,14 @@ import { getVisits } from "../../store";
 import { dateStr } from '../../utils';
 
 const numVisitsByDay = (visits) => {
+  // we need the timestamp for accurate dates
+  // new Date('2024-09-22') => the 21st
+  // new Date(timestamp) => timezone data keeps it the
+  // the '2024-09-22' is useful for collating the visits on that day only
+  // and yes, I'm pretty sure that we're risking the edge hours going in the wrong day, that's ok for now
   const routeHitsByDay = visits.reduce((hash, { timestamp, ipUuid}) => {
     const date = timestamp.slice(0, 10)
-    hash[date] ||= { visits: 0, uniqueVisits: 0, ipUuids: {} };
+    hash[date] ||= { visits: 0, uniqueVisits: 0, ipUuids: {}, timestamp };
     hash[date].visits += 1;
 
     if (!hash[date].ipUuids[ipUuid]) {
@@ -18,7 +23,7 @@ const numVisitsByDay = (visits) => {
 
   let dates = Object.keys(routeHitsByDay).sort()
   const values = dates.map(date => routeHitsByDay[date]);
-  dates = dates.map(date => dateStr(date));
+  dates = values.map(({ timestamp }) => dateStr(timestamp));
   return [dates, values];
 }
 
@@ -39,11 +44,11 @@ export default class RouteViewsByDayChart extends HTMLElement {
       labels: dateLabels,
       datasets: [
         {
-          label: 'Hits by day',
+          label: 'Visits by day',
           data: values.map(v => v.visits)
         },
         {
-          label: 'unique by day',
+          label: 'Unique by day',
           data: values.map(v => v.uniqueVisits)
         }
       ]
@@ -61,8 +66,9 @@ export default class RouteViewsByDayChart extends HTMLElement {
             callbacks: {
               title: ([{ dataIndex}]) => {
                 const date = dateLabels[dataIndex]
+                console.log('date:', date);
                 const dayOfWeek = new Date(date).toLocaleDateString('en-us', { weekday: 'long'});
-                return `${dayOfWeek}, ${date}`;
+                return `${dayOfWeek}, ${date.slice(3)}`;
               }
             }
           }
