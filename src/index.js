@@ -8,10 +8,13 @@ import { addVisits } from './store'
 import RouteInfoModal from './components/modals/RouteInfoModal';
 import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
 import CloseModalButton from './components/modals/CloseModalButton';
+import RouteViewsByDayChart from './components/charts/RouteViewsByDayChart';
 
 customElements.define('route-modal', RouteInfoModal);
 customElements.define('referrer-modal', ReferrerInfoModal);
 customElements.define('close-modal', CloseModalButton);
+
+customElements.define('chart-route-views-by-day', RouteViewsByDayChart);
 
 const renderMain = () => {
   const appEl = document.querySelector('#app')

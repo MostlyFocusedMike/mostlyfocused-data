@@ -48,6 +48,16 @@ export const timeStr = (dateString) => {
   return `${month}/${day}/${year} ${hours}:${minutes} ${amOrPm}`;
 }
 
+export const dateStr = (dateString) => {
+  const date = new Date(dateString);
+
+  const month = date.getMonth() + 1; // getMonth() returns 0-11
+  const day = date.getDate();
+  const year = date.getFullYear().toString().slice(-2);
+
+  return `${month}/${day}/${year}`;
+}
+
 
 export const escapeText = (str) => str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 
