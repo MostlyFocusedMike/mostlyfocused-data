@@ -18,6 +18,13 @@ const renderTableRow = ({ route, visits, uniqueVisits }) => {
   <td>${visits}</td>
   <td>${uniqueVisits}</td>
   <td><route-modal>${route}</route-modal></td>
+  <td>
+    <a
+      href="https://mostlyfocused.com${route}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Visit ${route}"
+    >Link</a></td>
   </tr>`;
 };
 
@@ -46,6 +53,7 @@ export default function renderRouteViewCountTable(visits) {
           <th>Visits</th>
           <th>(Unique)</th>
           <th>Page</th>
+          <th></th>
         </tr>
         <tr>
           <td>${totalVisits}</td>

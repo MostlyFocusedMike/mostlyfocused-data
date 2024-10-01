@@ -95,7 +95,7 @@ export default class VisitsByDayChart extends HTMLElement {
       data: barData,
       options: {
         spanGaps: false,
-        scales: { y: { beginAtZero: true, max: maxY }, x: { display: false }},
+        scales: { y: { beginAtZero: true, max: maxY }, x: { grid: { display: false }}},
         plugins: {
           tooltip: {
             callbacks: {
