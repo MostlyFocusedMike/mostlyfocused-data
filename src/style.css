@@ -22,3 +22,7 @@ ul, ol, li {
   border: 2px solid black;
   padding: 1rem;
 }
+
+dialog {
+  min-width: 60rem;
+}

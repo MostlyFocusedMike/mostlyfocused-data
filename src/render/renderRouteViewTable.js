@@ -40,7 +40,7 @@ export default function renderRouteViewCountTable(visits) {
   container.innerHTML = /*html*/`
     <section aria-describedby="route-view-count-header">
       <h2 id='route-view-count-header'>Route Visit Count</h2>
-      <chart-route-views-by-day></chart-route-views-by-day>
+      <route-visits-by-day-chart></route-visits-by-day-chart>
       <table>
         <tr>
           <th>Visits</th>

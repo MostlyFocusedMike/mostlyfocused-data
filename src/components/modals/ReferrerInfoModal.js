@@ -19,6 +19,7 @@ const handleBackdropClick = (modal) => (e) => {
 export default class ReferrerInfoModal extends HTMLElement {
   connectedCallback() {
     this.displayReferrer = this.childNodes[0].textContent;
+    this.referrer = this.dataset.referrer;
 
     this.render();
   }
@@ -35,10 +36,14 @@ export default class ReferrerInfoModal extends HTMLElement {
     modal.innerHTML = /*html*/`
       <close-modal></close-modal>
       <h2>${this.displayReferrer}</h2>
+      <route-visits-by-day-chart data-referrer=${this.referrer}></route-visits-by-day-chart>
       ${makeRouteCountsTable(referrerHits)}
     `;
 
-    button.onclick = () => modal.showModal();
+    button.onclick = () => {
+      modal.showModal();
+      modal.querySelector('route-visits-by-day-chart').open();
+    }
     modal.onclick = handleBackdropClick(modal);
 
     this.append(button, modal);

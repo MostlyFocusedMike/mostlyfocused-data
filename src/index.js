@@ -8,13 +8,13 @@ import { addVisits } from './store'
 import RouteInfoModal from './components/modals/RouteInfoModal';
 import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
 import CloseModalButton from './components/modals/CloseModalButton';
-import RouteViewsByDayChart from './components/charts/RouteViewsByDayChart';
+import VisitsByDayChart from './components/charts/VisitsByDayChart';
 
 customElements.define('route-modal', RouteInfoModal);
 customElements.define('referrer-modal', ReferrerInfoModal);
 customElements.define('close-modal', CloseModalButton);
 
-customElements.define('chart-route-views-by-day', RouteViewsByDayChart);
+customElements.define('route-visits-by-day-chart', VisitsByDayChart);
 
 const renderMain = () => {
   const appEl = document.querySelector('#app')
@@ -40,9 +40,9 @@ const main = async () => {
   console.log('visits:', visits);
   addVisits(visits);
 
-  renderVisitCards(visits);
   renderRouteViewCountTable(visits);
   renderReferrerCountTable(visits)
+  renderVisitCards(visits);
 };
 
 main();
