@@ -3,15 +3,15 @@ import { getVisitByReferrer, getVisitByRoute, getVisits } from "../../store";
 import { dateStr } from '../../utils';
 
 function getDatesInRange(monthNum, year = 2024) {
-  const format = (time) => (new Date(time)).toISOString().slice(0, 10) + 'T00:00'
+  const format = (time) => new Date(time).toLocaleDateString();
   const month = monthNum < 10 ? `0${monthNum}` : monthNum;
-  let currentDate = new Date(`${year}-${month}-01T00:00`);
-  const dates = [format(currentDate)];
-  currentDate.setDate(currentDate.getDate() + 1);
+  let dayIterator = new Date(`${year}-${month}-01T00:00`);
+  const dates = [format(dayIterator)];
+  dayIterator.setDate(dayIterator.getDate() + 1);
 
-  while (currentDate.getDate() != 1) {
-    dates.push(format(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
+  while (dayIterator.getDate() != 1) {
+    dates.push(format(dayIterator));
+    dayIterator.setDate(dayIterator.getDate() + 1);
   }
 
   return dates;
@@ -19,7 +19,7 @@ function getDatesInRange(monthNum, year = 2024) {
 
 const numVisitsByDay = (visits) => {
   const routeHitsByDay = visits.reduce((hash, { timestamp, ipUuid}) => {
-    const date = timestamp.slice(0, 10) + 'T00:00';
+    const date = new Date(timestamp).toLocaleDateString();
     hash[date] ||= { visits: 0, uniqueVisits: 0, ipUuids: {}, timestamp };
     hash[date].visits += 1;
 
@@ -30,6 +30,7 @@ const numVisitsByDay = (visits) => {
 
     return hash
   }, {})
+  console.log('routeHitsByDay:', routeHitsByDay);
 
   // TODO: these have to be changed when you allow queries by month and year
   const currentMonth = (new Date()).getMonth() + 1;
