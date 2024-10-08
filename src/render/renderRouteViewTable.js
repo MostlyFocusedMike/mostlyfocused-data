@@ -48,6 +48,7 @@ export default function renderRouteViewCountTable(visits) {
     <section aria-describedby="route-view-count-header">
       <h2 id='route-view-count-header'>Route Visit Count</h2>
       <route-visits-by-day-chart></route-visits-by-day-chart>
+      <visit-heatmap-chart></visit-heatmap-chart>
       <table>
         <tr>
           <th>Visits</th>

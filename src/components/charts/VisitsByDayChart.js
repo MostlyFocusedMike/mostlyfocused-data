@@ -6,6 +6,7 @@ function getDatesInRange(monthNum, year = 2024) {
   const format = (time) => new Date(time).toLocaleDateString();
   const month = monthNum < 10 ? `0${monthNum}` : monthNum;
   let dayIterator = new Date(`${year}-${month}-01T00:00`);
+
   const dates = [format(dayIterator)];
   dayIterator.setDate(dayIterator.getDate() + 1);
 
@@ -30,7 +31,6 @@ const numVisitsByDay = (visits) => {
 
     return hash
   }, {})
-  console.log('routeHitsByDay:', routeHitsByDay);
 
   // TODO: these have to be changed when you allow queries by month and year
   const currentMonth = (new Date()).getMonth() + 1;
@@ -53,8 +53,8 @@ export default class VisitsByDayChart extends HTMLElement {
     if (oldValue === newValue) return;
 
     if (property === 'is_open' && !!newValue) {
-      this.chart?.destroy()
-      requestAnimationFrame(this.render)
+      this.chart?.destroy();
+      requestAnimationFrame(this.render);
     }
   }
 
