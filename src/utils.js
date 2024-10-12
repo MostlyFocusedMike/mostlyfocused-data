@@ -99,3 +99,39 @@ export const $p = (value) => {
 }
 
 export const trimSite = (siteName) => siteName?.replace(/https?:\/\/(www.)?/, '');
+
+/**
+ * THIS IS NOT A NORMAL TAG FUNCTION, you must pass a parent element after the template string!
+ *
+ * Any data you want passed into a web component's `.props` method must be in a tuple.
+ * The first index values is the css selector, and the second index is what will get passed in. See Example.
+ *
+ * @param {TemplateStringsArray} strings - Provided by the template string
+ * @param {...*} inserts                 - Provided by the template string
+ * @returns {(rootEl: HTMLElement) => string} A function that takes in a root element to query and:
+ *   1. Applies the dynamic properties to the DOM.
+ *   2. Returns the final interpolated string.
+ *
+ * @example
+ * const div = document.createElement('div');
+ * const template = html`<my-el ${["my-el", { msg: "hello" }]}></my-el>`(div);
+ */
+export const html = (strings, ...inserts) => {
+  let finalStr = '';
+  const dataObjs = [];
+
+  for (let i = 0; i < strings.length; i++) {
+    finalStr += strings[i];
+
+    const insert = inserts[i];
+    if (insert === undefined) continue;
+    typeof insert === 'object' ? dataObjs.push(insert) : finalStr += insert;
+  }
+
+  return (root) => {
+    const addData = ([select, val]) => root.querySelector(select).props(val);
+    requestAnimationFrame(() => dataObjs.forEach(addData));
+
+    return finalStr;
+  };
+}
