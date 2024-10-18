@@ -24,7 +24,8 @@ export const addLiEl = (parentOrSelector, node, className, id) => {
  * @param {string} tag
  * @param {{attrName: attrVal}} dataAttrs
  */
-export const addDataset = (tag, dataAttrs) => {
+export const addDataset = (tag, dataAttrs, { opts = 'ok' }) => {
+  console.log('opts:', opts);
   // remember camelCase: val -> data-camel-case="val"
   for (key in dataAttrs) {
     tag.dataset[key] = dataAttrs[key];
@@ -101,8 +102,6 @@ export const $p = (value) => {
 export const trimSite = (siteName) => siteName?.replace(/https?:\/\/(www.)?/, '');
 
 /**
- * THIS IS NOT A NORMAL TAG FUNCTION, you must pass a parent element after the template string!
- *
  * Any data you want passed into a web component's `.props` method must be in a tuple.
  * The first index values is the css selector, and the second index is what will get passed in. See Example.
  *
@@ -128,10 +127,15 @@ export const html = (strings, ...inserts) => {
     typeof insert === 'object' ? dataObjs.push(insert) : finalStr += insert;
   }
 
-  return (root) => {
-    const addData = ([select, val]) => root.querySelector(select).props(val);
+  const addingDataToRootElFunction = (rootEl) => {
+    const addData = ([select, val]) => rootEl.querySelector(select).props(val);
     requestAnimationFrame(() => dataObjs.forEach(addData));
 
     return finalStr;
   };
+
+  // In case they don't actually have any dynamic data
+  addingDataToRootElFunction.toString = () => finalStr;
+
+  return addingDataToRootElFunction;
 }
