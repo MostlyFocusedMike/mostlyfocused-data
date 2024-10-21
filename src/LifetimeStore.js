@@ -3,10 +3,7 @@ const UPDATE_LIFETIMES = 'update-lifetimes'
 class LifetimeStore extends EventTarget {
   constructor() {
     super();
-    this.lifetimeTotals = {
-      routeTotals: [],
-      referrerTotals: []
-    }
+    this.lifetimeTotals = { routeTotals: [], referrerTotals: [] };
   }
 
   updateLifetimes(lifetimeTotals) {
@@ -22,13 +19,8 @@ class LifetimeStore extends EventTarget {
     this.removeEventListener(UPDATE_LIFETIMES, listenerFunc);
   }
 
-  getLifetimeReferrerTotals() {
-    return structuredClone(this.lifetimeTotals?.routeTotals);
-  }
-
-  getLifetimeReferrerTotals() {
-    return structuredClone(this.lifetimeTotals?.referrerTotals);
-  }
+  getLifetimeRouteTotals = () => structuredClone(this.lifetimeTotals?.routeTotals);
+  getLifetimeReferrerTotals = () => structuredClone(this.lifetimeTotals?.referrerTotals);
 }
 
 const lifetimeStore = new LifetimeStore();

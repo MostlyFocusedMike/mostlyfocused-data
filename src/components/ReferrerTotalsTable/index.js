@@ -1,7 +1,7 @@
 import lifetimeStore from "../../LifetimeStore";
 import { $m, html, trimSite } from "../../utils";
 
-const renderTableBody = ({ total, referrer}) => {
+const renderTableRow = ({ total, referrer}) => {
   return html`<tr>
     <td>${total}</td>
     <td>
@@ -14,35 +14,39 @@ const renderTableBody = ({ total, referrer}) => {
 
 export default class ReferrerTotalsTable extends HTMLElement {
   connectedCallback() {
-    this.render();
+    this.setup();
 
-    lifetimeStore.onUpdateLifetimes(this.render);
+    lifetimeStore.onUpdateLifetimes(this.renderTableRows);
   }
 
   disconnectedCallback() {
     lifetimeStore.removeListener(this.handleUpdateLifetimes);
   }
 
-  render = () => {
-    const totals = lifetimeStore.getLifetimeReferrerTotals();
-    console.log('Referrer lifetime totals:', totals);
-
+  setup() {
     this.innerHTML = html`
-    <section aria-describedby="referrer-totals-header">
-      <h2 id='referrer-totals-header'>Referrer Totals Count</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Hits</th>
-            <th>Referrer</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${$m(totals, renderTableBody)}
-        </tbody>
-      </table>
-    </section>
-  `;
-  console.log('rendered:', );
+      <section aria-describedby="referrer-totals-header">
+        <h2 id='referrer-totals-header'>Referrer Totals Count</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Hits</th>
+              <th>Referrer</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    `;
+
+    this.tableBody = this.querySelector('tbody');
+    this.modal = this.querySelector('my-modal');
+    this.renderTableRows();
+  }
+
+  renderTableRows = () => {
+    const totals = lifetimeStore.getLifetimeReferrerTotals();
+
+    this.tableBody.innerHTML = html`${$m(totals, renderTableRow)}`;
   }
 }

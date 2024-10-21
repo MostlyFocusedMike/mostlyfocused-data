@@ -33,18 +33,24 @@ export default class ReferrerInfoModal extends HTMLElement {
     button.textContent = this.displayReferrer;
 
     const modal = document.createElement('dialog');
-    modal.innerHTML = /*html*/`
-      <close-modal></close-modal>
-      <h2>${this.displayReferrer}</h2>
-      <route-visits-by-day-chart data-referrer=${this.referrer}></route-visits-by-day-chart>
-      ${makeRouteCountsTable(referrerHits)}
-    `;
 
     button.onclick = () => {
+      modal.innerHTML = /*html*/`
+        <close-modal></close-modal>
+        <h2>${this.displayReferrer}</h2>
+        <route-visits-by-day-chart data-referrer=${this.referrer}></route-visits-by-day-chart>
+        ${makeRouteCountsTable(referrerHits)}
+      `;
+
       modal.showModal();
+
       modal.querySelector('route-visits-by-day-chart').open();
     }
+
     modal.onclick = handleBackdropClick(modal);
+    modal.onOpen = () => {
+      console.log('hiiiiii:', );
+    }
 
     this.append(button, modal);
   }
