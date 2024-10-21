@@ -1,9 +1,9 @@
-import { $m, timeStr, trimSite } from "../utils";
+import { $m, trimSite } from "../utils";
 
 const renderVisitCard = ({ country, state, timestamp, ipUuid, referrer, route }) => {
   return /*html*/`<li class="visit-card">
     <p>Route: <b>${route.replace('/pages/', '')}</b></p>
-    <p>Time: ${timeStr(timestamp)}</p>
+    <p>Time: ${(new Date(timestamp)).toLocaleString("en-US")}</p>
     <p>Location: <b>${country}</b>, ${state}</p>
     <p class="small-text">Ref: ${trimSite(referrer)}</p>
     <p>ID: ${ipUuid}</p>

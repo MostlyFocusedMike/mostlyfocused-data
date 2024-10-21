@@ -32,23 +32,6 @@ export const addDataset = (tag, dataAttrs, { opts = 'ok' }) => {
   }
 }
 
-export const timeStr = (dateString) => {
-  const date = new Date(dateString);
-
-  const month = date.getMonth() + 1; // getMonth() returns 0-11
-  const day = date.getDate();
-  const year = date.getFullYear().toString().slice(-2);
-
-  let hours = date.getHours();
-  const amOrPm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-
-  return `${month}/${day}/${year} ${hours}:${minutes} ${amOrPm}`;
-}
-
 export const dateStr = (dateString) => {
   const date = new Date(dateString);
 
@@ -97,6 +80,13 @@ export const $p = (value) => {
     console.error(err)
     return false;
   }
+}
+
+export const trimRoute = (route) => {
+
+  if (route === '/') return 'mostlyfocused.com'
+  if (route === '/pages/articles/') return '/articles'
+  return route.replace('/pages/articles', '');
 }
 
 export const trimSite = (siteName) => siteName?.replace(/https?:\/\/(www.)?/, '');
