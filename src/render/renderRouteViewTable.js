@@ -1,5 +1,3 @@
-import { $m } from "../utils";
-
 const calculatePageData = (visits) => {
   return visits.reduce((acc, { ipUuid, route }) => {
     acc[route] ||= { route, visits: 0, uniqueVisits: 0, ipUuids: {} };
@@ -26,14 +24,11 @@ export default function renderRouteViewCountTable(visits) {
     return b.visits - a.visits;
   })
 
-  const totalVisits = pageData.reduce((a, { visits }) => a + visits, 0);
-  const totalUnique = pageData.reduce((a,v) => a + v.uniqueVisits, 0);
-
   container.innerHTML = /*html*/`
     <section aria-describedby="route-view-count-header">
       <h2 id='route-view-count-header'>Route Visit Count</h2>
       <route-visits-by-day-chart></route-visits-by-day-chart>
-      <visit-heatmap-chart></visit-heatmap-chart>
+      <!-- <visit-heatmap-chart></visit-heatmap-chart> -->
 
     </section>
   `;
