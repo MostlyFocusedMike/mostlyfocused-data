@@ -1,17 +1,18 @@
 import fetchHandler from './fetchHandler'
 import renderRouteViewCountTable from './render/renderRouteViewTable';
-import renderVisitCards from './render/renderVisitCards';
-import { addVisits, getVisits } from './store'
+import { addVisits } from './store'
 import './style.css'
 
 import RouteInfoModal from './components/modals/RouteInfoModal';
 import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
 import './components/modals/CloseModalButton';
+import './components/VisitCards';
 import VisitsByDayChart from './components/charts/VisitsByDayChart';
 import VisitsHeatmap from './components/charts/VisitHeatmap';
 import ReferrerTotalsTable from './components/ReferrerTotalsTable';
 import lifetimeStore from './LifetimeStore';
 import RouteTotalsTable from './components/RouteTotalsTable';
+import visitsStore from './VisitsStore';
 
 
 customElements.define('route-modal', RouteInfoModal);
@@ -41,6 +42,7 @@ const renderMain = () => {
         That goes by page, so one user loading every page once would be +1 visit to each page and +1 unique visit to each page as well.
       </p>
       <referrer-totals-table></referrer-totals-table>
+      <visit-cards></visit-cards>
       <div id='visit-cards-container'></div>
     </main>
   `;
@@ -52,13 +54,10 @@ const main = async () => {
   const [err2, lifetimeTotals] = await fetchHandler('/api/statistics/hosts/1/lifetime-totals')
   if (err || err2) return
   addVisits(visits);
-
+  visitsStore.updateVisits(visits);
   lifetimeStore.updateLifetimes(lifetimeTotals);
 
-  console.log('visits:', getVisits());
-
   renderRouteViewCountTable(visits);
-  renderVisitCards(visits);
 };
 
 main();
