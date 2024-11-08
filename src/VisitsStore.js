@@ -20,6 +20,14 @@ class VisitsStore extends EventTarget {
   }
 
   getVisits = () => structuredClone(this.visits);
+
+  getVisitsByRoute = (route) => {
+    return this.getVisits().filter(visit => visit.route === route);
+  }
+
+  getVisitsByReferrer = (referrer) => {
+    return this.getVisits().filter((visit) => visit.referrer === referrer);
+  }
 }
 
 const visitsStore = new VisitsStore();
