@@ -48,10 +48,6 @@ export default class ReferrerInfoModal extends HTMLElement {
     }
 
     modal.onclick = handleBackdropClick(modal);
-    modal.onOpen = () => {
-      console.log('hiiiiii:', );
-    }
-
     this.append(button, modal);
   }
 }

@@ -6,7 +6,7 @@ import './style.css'
 
 import RouteInfoModal from './components/modals/RouteInfoModal';
 import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
-import CloseModalButton from './components/modals/CloseModalButton';
+import './components/modals/CloseModalButton';
 import VisitsByDayChart from './components/charts/VisitsByDayChart';
 import VisitsHeatmap from './components/charts/VisitHeatmap';
 import ReferrerTotalsTable from './components/ReferrerTotalsTable';
@@ -16,7 +16,6 @@ import RouteTotalsTable from './components/RouteTotalsTable';
 
 customElements.define('route-modal', RouteInfoModal);
 customElements.define('referrer-modal', ReferrerInfoModal);
-customElements.define('close-modal', CloseModalButton);
 
 customElements.define('visit-heatmap-chart', VisitsHeatmap);
 customElements.define('route-visits-by-day-chart', VisitsByDayChart);
