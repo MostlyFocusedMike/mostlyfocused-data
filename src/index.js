@@ -32,7 +32,12 @@ const renderMain = () => {
         <h1>MostlyFocused on Data</h1>
         <p>Site traffic analysis</p>
       </hgroup>
-      <div id='route-view-count-container'></div>
+      <section aria-describedby="route-view-count-header">
+        <h2 id='route-view-count-header'>Route Visit Count</h2>
+        <route-visits-by-day-chart></route-visits-by-day-chart>
+        <!-- <visit-heatmap-chart></visit-heatmap-chart> -->
+
+      </section>
       <route-totals-table></route-totals-table>
       <h3>What's a visit?</h3>
       <p>
@@ -41,6 +46,7 @@ const renderMain = () => {
       <p>
         That goes by page, so one user loading every page once would be +1 visit to each page and +1 unique visit to each page as well.
       </p>
+
       <referrer-totals-table></referrer-totals-table>
       <visit-cards></visit-cards>
       <div id='visit-cards-container'></div>
@@ -56,8 +62,6 @@ const main = async () => {
   addVisits(visits);
   visitsStore.updateVisits(visits);
   lifetimeStore.updateLifetimes(lifetimeTotals);
-
-  renderRouteViewCountTable(visits);
 };
 
 main();

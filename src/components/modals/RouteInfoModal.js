@@ -20,7 +20,7 @@ export default class RouteInfoModal extends HTMLElement {
       ${makeReferrerCountsTable(routeVisits)}
     `;
     this.modal.showModal();
-    this.modal.querySelector('route-visits-by-day-chart').open();
+    this.modal.querySelector('route-visits-by-day-chart').renderNewChart();
   };
 
   render() {

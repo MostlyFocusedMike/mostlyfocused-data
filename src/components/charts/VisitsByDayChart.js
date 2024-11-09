@@ -1,8 +1,8 @@
 import Chart from 'chart.js/auto';
-import { getVisitByReferrer, getVisitByRoute, getVisits } from "../../store";
 import { dateStr } from '../../utils';
+import visitsStore from '../../VisitsStore';
 
-function getDatesInRange(monthNum, year = 2024) {
+const getListOfDaysInMonth = (monthNum, year = 2024) => {
   const format = (time) => new Date(time).toLocaleDateString();
   const month = monthNum < 10 ? `0${monthNum}` : monthNum;
   let dayIterator = new Date(`${year}-${month}-01T00:00`);
@@ -16,9 +16,9 @@ function getDatesInRange(monthNum, year = 2024) {
   }
 
   return dates;
-}
+};
 
-const numVisitsByDay = (visits) => {
+const getNumOfVisitsPerDay = (visits) => {
   const routeHitsByDay = visits.reduce((hash, { timestamp, ipUuid}) => {
     const date = new Date(timestamp).toLocaleDateString();
     hash[date] ||= { visits: 0, uniqueVisits: 0, ipUuids: {}, timestamp };
@@ -30,12 +30,12 @@ const numVisitsByDay = (visits) => {
     }
 
     return hash
-  }, {})
+  }, {});
 
   // TODO: these have to be changed when you allow queries by month and year
   const currentMonth = (new Date()).getMonth() + 1;
   const currentYear = (new Date()).getFullYear();
-  const datesForMonth = getDatesInRange(currentMonth, currentYear);
+  const datesForMonth = getListOfDaysInMonth(currentMonth, currentYear);
 
   const empty = { visits: 0, uniqueVisits: 0 }
   const values = datesForMonth.map(date => (routeHitsByDay[date] || empty));
@@ -44,26 +44,22 @@ const numVisitsByDay = (visits) => {
   const maxY = maxVal + (maxVal % 2 ? 1 : 0)
 
   return [dates, values, maxY];
-}
+};
 
 export default class VisitsByDayChart extends HTMLElement {
   static observedAttributes = ['is_open']
-
-  attributeChangedCallback(property, oldValue, newValue) {
-    if (oldValue === newValue) return;
-
-    if (property === 'is_open' && !!newValue) {
-      this.chart?.destroy();
-      requestAnimationFrame(this.render);
-    }
-  }
 
   connectedCallback() {
     this.route = this.dataset.route;
     this.referrer = this.dataset.referrer;
     if (this.route && this.referrer) throw new Error('Must pick route or referrer');
 
-    this.innerHTML = '';
+    this.setup();
+    this.render();
+    visitsStore.onUpdateVisits(this.render);
+  }
+
+  setup = () => {
     const canvas = document.createElement('canvas');
     canvas.setAttribute('aria-label', 'Total hits on route by day')
     canvas.role="img"
@@ -71,49 +67,50 @@ export default class VisitsByDayChart extends HTMLElement {
     this.append(canvas);
 
     this.canvas = canvas;
-    this.render();
+  }
+
+  selectVisits() {
+    if (this.route) return visitsStore.getVisitsByRoute(this.route);
+    if (this.referrer) return visitsStore.getVisitsByReferrer(this.referrer);
+    if (!this.route && !this.referrer) return visitsStore.getVisits();
   }
 
   render = () => {
-    let visits;
-    if (this.route) visits = getVisitByRoute(this.route);
-    if (this.referrer) visits = getVisitByReferrer(this.referrer);
-    if (!this.route && !this.referrer) visits = getVisits();
+    const [dateLabels, values, maxY] = getNumOfVisitsPerDay(this.selectVisits());
 
-    const [dateLabels, values, maxY] = numVisitsByDay(visits)
+    const defaultFormats = { lineTension: 0.05, fill: true };
+    const datasets = [
+      { ...defaultFormats, label: 'Unique by day', data: values.map(v => v.uniqueVisits) },
+      { ...defaultFormats, label: 'Visits by day', data: values.map(v => v.visits) },
+    ];
 
-    const barData = {
-      labels: dateLabels.map(d => d.label),
-      datasets: [
-        { lineTension: 0.05, label: 'Unique by day', data: values.map(v => v.uniqueVisits), fill: true },
-        { lineTension: 0.05, label: 'Visits by day', data: values.map(v => v.visits), fill: true },
-      ]
-    };
-    if (this.referrer) barData.datasets.shift();
+    const barData = { labels: dateLabels.map(d => d.label), datasets };
+    if (this.referrer) barData.datasets.shift(); // unique visits clutter this view
 
-    const lineConfig = {
-      type: 'line',
-      data: barData,
-      options: {
-        spanGaps: false,
-        scales: { y: { beginAtZero: true, max: maxY }, x: { grid: { display: false }}},
-        plugins: {
-          tooltip: {
-            callbacks: {
-              title: ([{ dataIndex}]) => {
-                const date = dateLabels[dataIndex].date;
-                const dayOfWeek = new Date(date).toLocaleDateString('en-us', { weekday: 'long'});
-                return `${dayOfWeek}, ${dateStr(date).slice(3)}`;
-              }
+    const options = {
+      spanGaps: false,
+      scales: { y: { beginAtZero: true, max: maxY }, x: { grid: { display: false }}},
+      plugins: {
+        tooltip: {
+          callbacks: {
+            title: ([{ dataIndex}]) => {
+              const date = dateLabels[dataIndex].date;
+              const dayOfWeek = new Date(date).toLocaleDateString('en-us', { weekday: 'long'});
+              return `${dayOfWeek}, ${dateStr(date).slice(3)}`;
             }
           }
-        },
+        }
       },
-    };
+    }
+    const lineConfig = { type: 'line', data: barData, options };
 
+    this.chart?.destroy();
     this.chart = new Chart(this.canvas, lineConfig);
   }
 
-  open() { this.setAttribute('is_open', true) }
-  hide() { this.removeAttribute('is_open') }
+  // this is a quirk dealing with modals, there should be a fix
+  renderNewChart() {
+    this.chart?.destroy();
+    requestAnimationFrame(this.render);
+  }
 }

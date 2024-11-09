@@ -44,7 +44,7 @@ export default class ReferrerInfoModal extends HTMLElement {
 
       modal.showModal();
 
-      modal.querySelector('route-visits-by-day-chart').open();
+      modal.querySelector('route-visits-by-day-chart').renderNewChart();
     }
 
     modal.onclick = handleBackdropClick(modal);
