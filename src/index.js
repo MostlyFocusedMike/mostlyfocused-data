@@ -1,6 +1,6 @@
 import fetchHandler from './fetchHandler'
-import visitsStore from './VisitsStore';
-import lifetimeStore from './LifetimeStore';
+import visitsStore from './stores/VisitsStore';
+import lifetimeStore from './stores/LifetimeStore';
 import './components/modals/CloseModalButton';
 import './components/modals/RouteInfoModal';
 import './components/modals/ReferrerInfoModal';

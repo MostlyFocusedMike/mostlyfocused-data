@@ -1,4 +1,4 @@
-import lifetimeStore from "../../LifetimeStore";
+import lifetimeStore from "../../stores/LifetimeStore";
 import { $m, html, trimRoute } from "../../utils";
 
 const renderTableRow = ({ total, unique, route }) => {

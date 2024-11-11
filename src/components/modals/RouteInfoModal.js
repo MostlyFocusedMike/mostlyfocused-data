@@ -1,6 +1,6 @@
 import makeReferrerCountsTable from "../../templates/makeReferrerCountsTable";
 import { trimRoute } from "../../utils";
-import visitsStore from "../../VisitsStore";
+import visitsStore from "../../stores/VisitsStore";
 import { handleBackdropClick } from "./utils";
 
 class RouteInfoModal extends HTMLElement {

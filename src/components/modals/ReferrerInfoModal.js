@@ -1,5 +1,5 @@
 import makeRouteCountsTable from "../../templates/makeSimpleRouteCountsTable";
-import visitsStore from "../../VisitsStore";
+import visitsStore from "../../stores/VisitsStore";
 import { handleBackdropClick } from "./utils";
 
 class ReferrerInfoModal extends HTMLElement {

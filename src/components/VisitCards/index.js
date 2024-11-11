@@ -1,5 +1,5 @@
 import { $m, trimSite, html } from "../../utils";
-import visitsStore from "../../VisitsStore";
+import visitsStore from "../../stores/VisitsStore";
 
 const renderVisitCard = ({ country, state, timestamp, ipUuid, referrer, route }) => {
   return /*html*/`<li class="visit-card">

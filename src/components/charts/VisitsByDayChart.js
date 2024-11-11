@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';
 import { dateStr } from '../../utils';
-import visitsStore from '../../VisitsStore';
+import visitsStore from '../../stores/VisitsStore';
 
 const getListOfDaysInMonth = (monthNum, year = 2024) => {
   const format = (time) => new Date(time).toLocaleDateString();
