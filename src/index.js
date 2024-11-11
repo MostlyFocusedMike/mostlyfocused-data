@@ -1,24 +1,21 @@
 import fetchHandler from './fetchHandler'
-import renderRouteViewCountTable from './render/renderRouteViewTable';
 import { addVisits } from './store'
-import './style.css'
 
 import RouteInfoModal from './components/modals/RouteInfoModal';
 import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
-import './components/modals/CloseModalButton';
-import './components/VisitCards';
 import VisitsByDayChart from './components/charts/VisitsByDayChart';
-import VisitsHeatmap from './components/charts/VisitHeatmap';
 import ReferrerTotalsTable from './components/ReferrerTotalsTable';
 import lifetimeStore from './LifetimeStore';
 import RouteTotalsTable from './components/RouteTotalsTable';
 import visitsStore from './VisitsStore';
+import './components/modals/CloseModalButton';
+import './components/VisitCards';
+import './style.css'
 
 
 customElements.define('route-modal', RouteInfoModal);
 customElements.define('referrer-modal', ReferrerInfoModal);
 
-customElements.define('visit-heatmap-chart', VisitsHeatmap);
 customElements.define('route-visits-by-day-chart', VisitsByDayChart);
 customElements.define('referrer-totals-table', ReferrerTotalsTable);
 customElements.define('route-totals-table', RouteTotalsTable);
@@ -35,7 +32,6 @@ const renderMain = () => {
       <section aria-describedby="route-view-count-header">
         <h2 id='route-view-count-header'>Route Visit Count</h2>
         <route-visits-by-day-chart></route-visits-by-day-chart>
-        <!-- <visit-heatmap-chart></visit-heatmap-chart> -->
 
       </section>
       <route-totals-table></route-totals-table>
