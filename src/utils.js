@@ -1,37 +1,3 @@
-export const addTag = (tagName, parentOrSelector, id, className, node) => {
-  const tag = document.createElement(tagName);
-  if (id) tag.id = id;
-  if (className) tag.classList.add(className);
-  if (node) tag.append(node);
-  const parentElement = (typeof parentOrSelector === 'object')
-    ? parentOrSelector
-    : document.querySelector(parentOrSelector);
-  parentElement.append(tag);
-
-  return tag;
-}
-
-export const addUlEl = (parentOrSelector, id, className) => {
-  return addTag('ul', parentOrSelector, id, className)
-}
-
-export const addLiEl = (parentOrSelector, node, className, id) => {
-  return addTag('li', parentOrSelector, id, className, node)
-}
-
-/**
- *
- * @param {string} tag
- * @param {{attrName: attrVal}} dataAttrs
- */
-export const addDataset = (tag, dataAttrs, { opts = 'ok' }) => {
-  console.log('opts:', opts);
-  // remember camelCase: val -> data-camel-case="val"
-  for (key in dataAttrs) {
-    tag.dataset[key] = dataAttrs[key];
-  }
-}
-
 export const dateStr = (dateString) => {
   const date = new Date(dateString);
 
@@ -41,10 +7,6 @@ export const dateStr = (dateString) => {
 
   return `${dayOfWeek[0]}, ${month}/${day}`;
 }
-
-
-export const escapeText = (str) => str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-
 
 /**
  * Utility wrapper for easy html interpolation
@@ -83,7 +45,6 @@ export const $p = (value) => {
 }
 
 export const trimRoute = (route) => {
-
   if (route === '/') return 'mostlyfocused.com'
   if (route === '/pages/articles/') return '/articles'
   return route.replace('/pages/articles', '');
