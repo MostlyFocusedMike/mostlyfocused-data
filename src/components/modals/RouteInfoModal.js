@@ -1,9 +1,9 @@
-import { getVisitByRoute } from "../../store";
 import makeReferrerCountsTable from "../../templates/makeReferrerCountsTable";
 import { trimRoute } from "../../utils";
+import visitsStore from "../../VisitsStore";
 import { handleBackdropClick } from "./utils";
 
-export default class RouteInfoModal extends HTMLElement {
+class RouteInfoModal extends HTMLElement {
   connectedCallback() {
     this.route = this.childNodes[0].textContent;
 
@@ -11,7 +11,7 @@ export default class RouteInfoModal extends HTMLElement {
   }
 
   handleShowModal = () => {
-    const routeVisits = getVisitByRoute(this.route);
+    const routeVisits = visitsStore.getVisitsByRoute(this.route);
 
     this.modal.innerHTML = /*html*/`
       <close-modal></close-modal>
@@ -23,7 +23,7 @@ export default class RouteInfoModal extends HTMLElement {
     this.modal.querySelector('route-visits-by-day-chart').renderNewChart();
   };
 
-  render() {
+  render = () => {
     this.innerHTML = '';
 
     const button = document.createElement('button');
@@ -37,3 +37,5 @@ export default class RouteInfoModal extends HTMLElement {
     this.append(button, this.modal);
   }
 }
+
+customElements.define('route-modal', RouteInfoModal);

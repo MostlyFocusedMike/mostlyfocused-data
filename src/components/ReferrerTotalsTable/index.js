@@ -12,7 +12,7 @@ const renderTableRow = ({ total, referrer}) => {
   </tr>`
 }
 
-export default class ReferrerTotalsTable extends HTMLElement {
+class ReferrerTotalsTable extends HTMLElement {
   connectedCallback() {
     this.setup();
 
@@ -50,3 +50,5 @@ export default class ReferrerTotalsTable extends HTMLElement {
     this.tableBody.innerHTML = html`${$m(totals, renderTableRow)}`;
   }
 }
+
+customElements.define('referrer-totals-table', ReferrerTotalsTable);

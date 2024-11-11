@@ -1,22 +1,8 @@
-import { getVisitByReferrer } from "../../store";
 import makeRouteCountsTable from "../../templates/makeSimpleRouteCountsTable";
+import visitsStore from "../../VisitsStore";
+import { handleBackdropClick } from "./utils";
 
-const handleBackdropClick = (modal) => (e) => {
-  if (!e.target.matches('dialog')) return;
-  const { top, bottom, left, right } = e.target.getBoundingClientRect();
-  const { clientX: mouseX, clientY: mouseY } = e;
-
-  if (mouseX === 0 && mouseY === 0) return; // https://github.com/facebook/react/issues/7407
-
-  const clickedOutsideOfModalBox = (
-    mouseX <= left || mouseX >= right ||
-    mouseY <= top || mouseY >= bottom
-  );
-
-  if (clickedOutsideOfModalBox) modal.close();
-}
-
-export default class ReferrerInfoModal extends HTMLElement {
+class ReferrerInfoModal extends HTMLElement {
   connectedCallback() {
     this.displayReferrer = this.childNodes[0].textContent;
     this.referrer = this.dataset.referrer;
@@ -25,9 +11,8 @@ export default class ReferrerInfoModal extends HTMLElement {
   }
 
   render() {
-    const referrerHits = getVisitByReferrer(this.dataset.referrer);
-
     this.innerHTML = '';
+    const referrerHits = visitsStore.getVisitsByReferrer(this.dataset.referrer);
 
     const button = document.createElement('button');
     button.textContent = this.displayReferrer;
@@ -43,7 +28,6 @@ export default class ReferrerInfoModal extends HTMLElement {
       `;
 
       modal.showModal();
-
       modal.querySelector('route-visits-by-day-chart').renderNewChart();
     }
 
@@ -51,3 +35,5 @@ export default class ReferrerInfoModal extends HTMLElement {
     this.append(button, modal);
   }
 }
+
+customElements.define('referrer-modal', ReferrerInfoModal);

@@ -46,7 +46,7 @@ const getNumOfVisitsPerDay = (visits) => {
   return [dates, values, maxY];
 };
 
-export default class VisitsByDayChart extends HTMLElement {
+class VisitsByDayChart extends HTMLElement {
   static observedAttributes = ['is_open']
 
   connectedCallback() {
@@ -114,3 +114,5 @@ export default class VisitsByDayChart extends HTMLElement {
     requestAnimationFrame(this.render);
   }
 }
+
+customElements.define('route-visits-by-day-chart', VisitsByDayChart);

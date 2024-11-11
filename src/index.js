@@ -1,24 +1,15 @@
 import fetchHandler from './fetchHandler'
-import { addVisits } from './store'
-
-import RouteInfoModal from './components/modals/RouteInfoModal';
-import ReferrerInfoModal from './components/modals/ReferrerInfoModal';
-import VisitsByDayChart from './components/charts/VisitsByDayChart';
-import ReferrerTotalsTable from './components/ReferrerTotalsTable';
-import lifetimeStore from './LifetimeStore';
-import RouteTotalsTable from './components/RouteTotalsTable';
 import visitsStore from './VisitsStore';
+import lifetimeStore from './LifetimeStore';
 import './components/modals/CloseModalButton';
+import './components/modals/RouteInfoModal';
+import './components/modals/ReferrerInfoModal';
+import './components/charts/VisitsByDayChart';
+import './components/ReferrerTotalsTable';
+import './components/RouteTotalsTable';
 import './components/VisitCards';
-import './style.css'
+import './style.css';
 
-
-customElements.define('route-modal', RouteInfoModal);
-customElements.define('referrer-modal', ReferrerInfoModal);
-
-customElements.define('route-visits-by-day-chart', VisitsByDayChart);
-customElements.define('referrer-totals-table', ReferrerTotalsTable);
-customElements.define('route-totals-table', RouteTotalsTable);
 
 const renderMain = () => {
   const appEl = document.querySelector('#app')
@@ -55,7 +46,6 @@ const main = async () => {
   const [err, { visits }] = await fetchHandler('/api/hosts/1/visits');
   const [err2, lifetimeTotals] = await fetchHandler('/api/statistics/hosts/1/lifetime-totals')
   if (err || err2) return
-  addVisits(visits);
   visitsStore.updateVisits(visits);
   lifetimeStore.updateLifetimes(lifetimeTotals);
 };

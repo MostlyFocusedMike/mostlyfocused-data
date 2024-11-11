@@ -16,7 +16,7 @@ const renderTableRow = ({ total, unique, route }) => {
   </tr>`
 }
 
-export default class ReferrerTotalsTable extends HTMLElement {
+class RouteTotalsTable extends HTMLElement {
   connectedCallback() {
     this.setup();
 
@@ -61,3 +61,5 @@ export default class ReferrerTotalsTable extends HTMLElement {
     `;
   }
 }
+
+customElements.define('route-totals-table', RouteTotalsTable);
