@@ -1,7 +1,7 @@
 export default async function fetchHandler(route: string) {
   const host = import.meta.env.DEV
-    ? 'http://localhost:3000'
-    : 'https://traffic.mostlyfocused.com'
+    ? 'http://localhost:3000/api'
+    : 'https://traffic.mostlyfocused.com/api'
 
   const response = await fetch(host + route);
   const { ok, status, statusText, headers } = response;
