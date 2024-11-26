@@ -9,6 +9,7 @@ export default function MainRouteTotalsTable() {
     const visits = monthVisitsByRoute[routeTotal.route] || [];
     routeTotal.monthTotal = visits.length;
     routeTotal.monthUnique = (new Set(visits.map(route => route.ipUuid))).size;
+
     return routeTotal;
   };
 
