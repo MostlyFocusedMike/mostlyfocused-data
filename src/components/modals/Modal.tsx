@@ -1,25 +1,34 @@
-import { ReactNode, useId, useRef } from "react";
+import { ReactNode, useId, useRef, useState } from "react";
 
 type Props = {
   openBtnText: string;
-  modalLabel: string;
-  submitBtnText?: string;
+  heading: string;
   handleClose?: (e: React.SyntheticEvent<HTMLDialogElement>) => void;
   children: ReactNode;
 }
 
-export default function Modal(props: Props) {
-  const {
-    openBtnText,
-    modalLabel,
-    handleClose = () => { },
-    children
-  } = props;
+export default function Modal({
+  openBtnText,
+  heading,
+  handleClose = () => { },
+  children
+}: Props) {
+  const [isVisible, setIsVisible] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const formId = useId();
 
-  const openModal = () => dialogRef?.current?.showModal();
-  const closeModal = () => dialogRef?.current?.close();
+  const openModal = () => {
+    setIsVisible(true);
+    dialogRef?.current?.showModal();
+  };
+  const closeModal = () => {
+    setIsVisible(false);
+    dialogRef?.current?.close();
+  };
+  const _handleClose = (e: React.SyntheticEvent<HTMLDialogElement>) => {
+    setIsVisible(false);
+    handleClose(e);
+  };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
@@ -39,15 +48,14 @@ export default function Modal(props: Props) {
 
   return <>
     <button onClick={openModal}>{openBtnText}</button>
-
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
-      onClose={handleClose}
+      onClose={_handleClose}
     >
       <form method="dialog"><button aria-label="Close modal">X</button></form>
-      <h2 id={formId}>{modalLabel}</h2>
-      {children}
+      <h2 id={formId}>{heading}</h2>
+      {isVisible && children}
     </dialog>
   </>
 }

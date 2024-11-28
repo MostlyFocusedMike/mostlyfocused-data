@@ -1,7 +1,7 @@
 import { useGetMonthlyViews } from "../api/get-monthly-views";
 import { useGetLifetimeTotals } from "../api/lifetime-totals"
 import { LifetimeAndMonthRouteTotal } from "../types";
-import { formatRouteName } from "../utils";
+import RouteVisitsModal from "./modals/RouteVisitsModal";
 import RouteLink from "./RouteLink";
 
 export default function MainRouteTotalsTable() {
@@ -50,7 +50,7 @@ export default function MainRouteTotalsTable() {
         {
           lifetimeAndMonthTotals.map(({ total, unique, monthTotal, monthUnique, route }) => {
             return <tr key={route}>
-              <td>{formatRouteName(route)}</td>
+              <td><RouteVisitsModal route={route} /></td>
               <td>{monthTotal}</td>
               <td>{monthUnique}</td>
               <td>{total}</td>
