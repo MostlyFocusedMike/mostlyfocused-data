@@ -1,4 +1,4 @@
-import MonthRouteVisitsChart from "./components/charts/MonthRouteVisitsChart";
+import MonthRouteVisitsSection from "./components/MonthRouteVisitsSection";
 import MainRouteTotalsTable from "./components/MainRouteTotalsTable";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
         <h1>MostlyFocused On Data</h1>
         <p>Traffic Analysis for my site</p>
       </hgroup>
-      <MonthRouteVisitsChart />
+      <MonthRouteVisitsSection />
       <MainRouteTotalsTable />
     </main>
   )

@@ -10,9 +10,11 @@ import {
   LineElement,
   PointElement,
   Filler,
+  Colors
 } from 'chart.js';
 
 ChartJS.register(
+  Colors,
   Filler,
   CategoryScale,
   LinearScale,

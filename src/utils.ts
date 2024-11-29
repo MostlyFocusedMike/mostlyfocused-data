@@ -33,7 +33,14 @@ export const getListOfDaysInMonth = (monthNum: number, year = 2024) => {
   return dates;
 };
 
-export const getNumOfVisitsPerDay = (visits: Visit[]) => {
+type DateOpt = { date: string, label: string }
+type ValueObj = {
+  visits: number;
+  uniqueVisits: number;
+  ipUuids: { [key: string]: boolean };
+  timestamp: string;
+}
+export const getNumOfVisitsPerDay = (visits: Visit[]): [DateOpt[], ValueObj[], number] => {
   const routeHitsByDay = visits.reduce((hash: any, { timestamp, ipUuid }) => {
     const date = new Date(timestamp).toLocaleDateString();
     hash[date] ||= { visits: 0, uniqueVisits: 0, ipUuids: {}, timestamp };
