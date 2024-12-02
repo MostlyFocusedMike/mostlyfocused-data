@@ -1,4 +1,5 @@
-import { ReactNode, useId, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useId, useRef, useState } from "react";
+import { useSearchParams } from "react-router";
 
 type Props = {
   openBtnText: string;
@@ -14,18 +15,25 @@ export default function Modal({
   children
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const formId = useId();
 
-  const openModal = () => {
-    setIsVisible(true);
+  useEffect(() => {
+    const currentRoute = decodeURIComponent(searchParams.get('route') || '');
+    if (currentRoute === heading) dialogRef?.current?.showModal()
+  }, [searchParams, heading]);
+
+  const handleOpenClick = () => {
+    searchParams.set('route', encodeURIComponent(heading));
+    setSearchParams(searchParams);
     dialogRef?.current?.showModal();
   };
-  const closeModal = () => {
-    setIsVisible(false);
-    dialogRef?.current?.close();
-  };
+
   const _handleClose = (e: React.SyntheticEvent<HTMLDialogElement>) => {
+    searchParams.delete('route');
+    setSearchParams(searchParams);
+
     setIsVisible(false);
     handleClose(e);
   };
@@ -43,11 +51,14 @@ export default function Modal({
       mouseX <= left || mouseX >= right || mouseY <= top || mouseY >= bottom
     );
 
-    if (clickedOutsideOfModalBox) closeModal();
+    if (clickedOutsideOfModalBox) {
+      setIsVisible(false);
+      dialogRef?.current?.close();
+    }
   }
 
   return <>
-    <button onClick={openModal}>{openBtnText}</button>
+    <button onClick={handleOpenClick}>{openBtnText}</button>
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
