@@ -11,7 +11,7 @@ type Props = {
 export default function Modal({
   openBtnText,
   heading,
-  handleClose = () => { },
+  handleClose,
   children
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,6 +28,7 @@ export default function Modal({
   }, [searchParams, heading]);
 
   const handleOpenClick = () => {
+    setIsVisible(true);
     searchParams.set('route', encodeURIComponent(heading));
     setSearchParams(searchParams);
     dialogRef?.current?.showModal();
@@ -38,7 +39,7 @@ export default function Modal({
     setSearchParams(searchParams);
 
     setIsVisible(false);
-    handleClose(e);
+    handleClose?.(e);
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLElement>) => {
