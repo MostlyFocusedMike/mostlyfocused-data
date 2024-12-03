@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useId, useRef, useState } from "react";
+import { ReactNode, useEffect, useId, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 
 type Props = {
@@ -21,7 +21,10 @@ export default function Modal({
 
   useEffect(() => {
     const currentRoute = decodeURIComponent(searchParams.get('route') || '');
-    if (currentRoute === heading) dialogRef?.current?.showModal()
+    if (currentRoute === heading) {
+      setIsVisible(true);
+      dialogRef?.current?.showModal()
+    }
   }, [searchParams, heading]);
 
   const handleOpenClick = () => {
