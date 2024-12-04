@@ -8,7 +8,6 @@ export default function RouteVisitsModal({ route }: { route: string; }) {
   if (!data) return null;
 
   const routeVisits = data.visits.filter((visit) => visit.route === route);
-  console.log('routeVisits:', routeVisits);
 
   return <Modal
     openBtnText={route}

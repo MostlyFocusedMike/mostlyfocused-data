@@ -1,5 +1,6 @@
 import MonthRouteVisitsSection from "./components/MonthRouteVisitsSection";
 import MainRouteTotalsTable from "./components/MainRouteTotalsTable";
+import MainReferrerTotalsTable from "./components/MainReferrerTotalsTable";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       </hgroup>
       <MonthRouteVisitsSection />
       <MainRouteTotalsTable />
+      <MainReferrerTotalsTable />
     </main>
   )
 }
