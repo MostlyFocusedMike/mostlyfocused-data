@@ -1,22 +1,24 @@
-import { useGetMonthlyViews } from "../api/get-monthly-views";
-import { useGetLifetimeTotals } from "../api/lifetime-totals"
+import { LifetimeAndMonthReferrerTotal, LifetimeReferrerTotal, Visit } from "../types";
 
-export default function MainReferrerTotalsTable() {
-  const addMonthVisits = (routeTotal: any) => {
+type Props = {
+  monthlyVisits: Visit[];
+  referrerTotals: LifetimeReferrerTotal[]
+}
+
+export default function MainReferrerTotalsTable(props: Props) {
+  const { monthlyVisits, referrerTotals } = props;
+  const addMonthVisits = (routeTotal: LifetimeAndMonthReferrerTotal) => {
     const visits = monthVisitsByRoute[routeTotal.referrer] || [];
     routeTotal.monthTotal = visits.length;
 
     return routeTotal;
   };
 
-  const { data: lifetimeTotals } = useGetLifetimeTotals();
-  const { data: monthlyVisits } = useGetMonthlyViews();
-  if (!lifetimeTotals || !monthlyVisits) return null;
+  if (!referrerTotals || !monthlyVisits) return null;
 
-  const { referrerTotals } = lifetimeTotals;
-  const monthVisitsByRoute = Object.groupBy(monthlyVisits.visits, ({ referrer }) => referrer);
+  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ referrer }) => referrer);
 
-  const lifetimeAndMonthTotals = (structuredClone(referrerTotals) as any[])
+  const lifetimeAndMonthTotals = (structuredClone(referrerTotals) as LifetimeAndMonthReferrerTotal[])
     .map(addMonthVisits)
     .toSorted((a, b) => b.monthTotal - a.monthTotal);
 

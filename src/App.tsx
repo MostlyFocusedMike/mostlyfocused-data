@@ -19,7 +19,7 @@ function App() {
       </hgroup>
       <MonthRouteVisitsSection monthlyVisits={monthlyVisits.visits} />
       <MainRouteTotalsTable />
-      <MainReferrerTotalsTable />
+      <MainReferrerTotalsTable monthlyVisits={monthlyVisits.visits} referrerTotals={referrerTotals} />
     </main>
   )
 }
