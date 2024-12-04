@@ -10,6 +10,7 @@ function App() {
   if (!lifetimeTotals || !monthlyVisits) return null;
 
   const { referrerTotals, routeTotals } = lifetimeTotals;
+  const { visits, total } = monthlyVisits;
 
   return (
     <main>
@@ -17,9 +18,9 @@ function App() {
         <h1>MostlyFocused On Data</h1>
         <p>Traffic Analysis for my site</p>
       </hgroup>
-      <MonthRouteVisitsSection monthlyVisits={monthlyVisits.visits} />
-      <MainRouteTotalsTable />
-      <MainReferrerTotalsTable monthlyVisits={monthlyVisits.visits} referrerTotals={referrerTotals} />
+      <MonthRouteVisitsSection monthlyVisits={visits} />
+      <MainRouteTotalsTable monthlyTotal={total} monthlyVisits={visits} routeTotals={routeTotals} />
+      <MainReferrerTotalsTable monthlyVisits={visits} referrerTotals={referrerTotals} />
     </main>
   )
 }

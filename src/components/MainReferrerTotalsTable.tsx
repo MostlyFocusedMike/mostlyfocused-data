@@ -7,6 +7,8 @@ type Props = {
 
 export default function MainReferrerTotalsTable(props: Props) {
   const { monthlyVisits, referrerTotals } = props;
+  if (!referrerTotals || !monthlyVisits) return null;
+
   const addMonthVisits = (routeTotal: LifetimeAndMonthReferrerTotal) => {
     const visits = monthVisitsByRoute[routeTotal.referrer] || [];
     routeTotal.monthTotal = visits.length;
@@ -14,7 +16,6 @@ export default function MainReferrerTotalsTable(props: Props) {
     return routeTotal;
   };
 
-  if (!referrerTotals || !monthlyVisits) return null;
 
   const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ referrer }) => referrer);
 

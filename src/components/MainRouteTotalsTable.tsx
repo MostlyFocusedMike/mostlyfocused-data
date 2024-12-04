@@ -1,10 +1,17 @@
-import { useGetMonthlyViews } from "../api/get-monthly-views";
-import { useGetLifetimeTotals } from "../api/lifetime-totals"
-import { LifetimeAndMonthRouteTotal } from "../types";
+import { LifetimeAndMonthRouteTotal, LifetimeRouteTotal, Visit } from "../types";
 import RouteVisitsModal from "./modals/RouteVisitsModal";
 import RouteLink from "./RouteLink";
 
-export default function MainRouteTotalsTable() {
+type Props = {
+  monthlyTotal: number;
+  monthlyVisits: Visit[];
+  routeTotals: LifetimeRouteTotal[]
+}
+
+export default function MainRouteTotalsTable(props: Props) {
+  const { monthlyTotal, monthlyVisits, routeTotals } = props;
+  if (!monthlyVisits || !routeTotals) return null;
+
   const addMonthVisits = (routeTotal: LifetimeAndMonthRouteTotal) => {
     const visits = monthVisitsByRoute[routeTotal.route] || [];
     routeTotal.monthTotal = visits.length;
@@ -13,12 +20,7 @@ export default function MainRouteTotalsTable() {
     return routeTotal;
   };
 
-  const { data: lifetimeTotals } = useGetLifetimeTotals();
-  const { data: monthlyVisits } = useGetMonthlyViews();
-  if (!lifetimeTotals || !monthlyVisits) return null;
-
-  const { routeTotals } = lifetimeTotals;
-  const monthVisitsByRoute = Object.groupBy(monthlyVisits.visits, ({ route }) => route);
+  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ route }) => route);
 
   const lifetimeAndMonthTotals = (structuredClone(routeTotals) as LifetimeAndMonthRouteTotal[])
     .map(addMonthVisits)
@@ -29,7 +31,7 @@ export default function MainRouteTotalsTable() {
   return <section aria-describedby="route-totals-header">
     <h2 id='route-totals-header'>Route Totals Count</h2>
     <p>Lifetime Total: {lifetimeSiteTotals}</p>
-    <p>Month Total: {monthlyVisits.total}</p>
+    <p>Month Total: {monthlyTotal}</p>
     <table>
       <thead>
         <tr>

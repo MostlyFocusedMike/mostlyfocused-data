@@ -3,7 +3,7 @@ export type LifetimeReferrerTotal = {
   referrer: string;
 }
 
-type LifetimeRouteTotal = {
+export type LifetimeRouteTotal = {
   route: string;
   total: number;
   unique: number;
