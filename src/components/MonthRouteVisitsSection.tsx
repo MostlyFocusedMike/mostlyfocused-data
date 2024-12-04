@@ -1,16 +1,17 @@
 import { useId } from "react";
-import { useGetMonthlyViews } from "../api/get-monthly-views";
 import VisitsByRouteChart from "./charts/VisitsByRouteChart";
+import { Visit } from "../types";
 
-export default function MonthRouteVisitsSection() {
+type Props = { monthlyVisits: Visit[] }
+
+export default function MonthRouteVisitsSection({ monthlyVisits }: Props) {
   const headerId = useId();
-  const { data } = useGetMonthlyViews();
-  if (!data) return null;
+  if (!monthlyVisits) return null;
 
   return (
     <section aria-describedby={headerId}>
       <h2 id={headerId}>Monthly Hits</h2>
-      <VisitsByRouteChart visits={data.visits} />
+      <VisitsByRouteChart visits={monthlyVisits} />
     </section>
   );
 }

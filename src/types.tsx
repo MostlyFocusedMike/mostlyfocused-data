@@ -1,6 +1,6 @@
-type ReferrerTotal = {
-  total: number
-  referrer: string
+type lifetimeReferrerTotal = {
+  total: number;
+  referrer: string;
 }
 
 type LifetimeRouteTotal = {
@@ -18,7 +18,7 @@ export type LifetimeAndMonthRouteTotal = {
 }
 
 export type LifetimeTotals = {
-  referrerTotals: ReferrerTotal[];
+  referrerTotals: lifetimeReferrerTotal[];
   routeTotals: LifetimeRouteTotal[];
 }
 
