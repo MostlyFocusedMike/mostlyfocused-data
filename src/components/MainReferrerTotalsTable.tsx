@@ -1,4 +1,5 @@
 import { LifetimeAndMonthReferrerTotal, LifetimeReferrerTotal, Visit } from "../types";
+import ReferrerVisitsModal from "./modals/ReferrerVisitsModal";
 
 type Props = {
   monthlyVisits: Visit[];
@@ -39,7 +40,7 @@ export default function MainReferrerTotalsTable(props: Props) {
             return <tr key={referrer}>
               <td>{total}</td>
               <td>{monthTotal}</td>
-              <td>{referrer}</td>
+              <td><ReferrerVisitsModal referrer={referrer} /></td>
             </tr>
           })
         }
