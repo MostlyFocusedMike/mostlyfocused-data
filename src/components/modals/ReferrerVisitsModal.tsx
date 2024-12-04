@@ -8,10 +8,7 @@ export default function ReferrerVisitsModal({ referrer }: { referrer: string; })
 
   const referrerVisits = data.visits.filter((visit) => visit.referrer === referrer);
 
-  return <Modal
-    openBtnText={referrer}
-    heading={referrer}
-  >
+  return <Modal openBtnText={referrer} heading={referrer} >
     <VisitsByRouteChart visits={referrerVisits} />
   </Modal>
 }

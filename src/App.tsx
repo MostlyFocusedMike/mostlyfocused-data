@@ -19,7 +19,7 @@ function App() {
         <p>Traffic Analysis for my site</p>
       </hgroup>
       <MonthRouteVisitsSection monthlyVisits={visits} />
-      <MainRouteTotalsTable monthlyTotal={total} monthlyVisits={visits} routeTotals={routeTotals} />
+      <MainRouteTotalsTable monthlyVisits={visits} routeTotals={routeTotals} monthlyTotal={total} />
       <MainReferrerTotalsTable monthlyVisits={visits} referrerTotals={referrerTotals} />
     </main>
   )
