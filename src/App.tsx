@@ -3,6 +3,7 @@ import MainRouteTotalsTable from "./components/MainRouteTotalsTable";
 import MainReferrerTotalsTable from "./components/MainReferrerTotalsTable";
 import { useGetMonthlyViews } from "./api/get-monthly-views";
 import { useGetLifetimeTotals } from "./api/lifetime-totals";
+import VisitsInDepthCards from "./components/VisitsInDepthCards";
 
 function App() {
   const { data: lifetimeTotals } = useGetLifetimeTotals();
@@ -19,6 +20,7 @@ function App() {
         <p>Traffic Analysis for my site</p>
       </hgroup>
       <MonthRouteVisitsSection monthlyVisits={visits} />
+      <VisitsInDepthCards monthlyVisits={visits} />
       <MainRouteTotalsTable monthlyVisits={visits} routeTotals={routeTotals} monthlyTotal={total} />
       <MainReferrerTotalsTable monthlyVisits={visits} referrerTotals={referrerTotals} />
     </main>
