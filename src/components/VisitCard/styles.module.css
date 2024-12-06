@@ -2,9 +2,10 @@
   display: block;
   border: 2px solid black;
   border: 0.1rem solid white;
-  border-radius: 0.4rem;
+  border-radius: 0 0 0 1rem;
   /* todo: Why is min-width what keeps the cards from squishing */
   min-width: 19rem;
+  overflow: hidden;
 
   & p {
     font-size: 0.9rem;
@@ -20,6 +21,7 @@
   color: var(--background-color);
   padding-left: 0.5rem;
   background-color: white;
+  background-clip: border-box;
 }
 
 .data {
