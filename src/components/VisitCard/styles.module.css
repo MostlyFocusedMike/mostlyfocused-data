@@ -1,0 +1,36 @@
+.visitCard {
+  display: block;
+  border: 2px solid black;
+  border: 0.1rem solid white;
+  border-radius: 0.4rem;
+  /* todo: Why is min-width what keeps the cards from squishing */
+  min-width: 19rem;
+
+  & p {
+    font-size: 0.9rem;
+    margin: 0
+  }
+
+  & .ipUuid {
+    font-size: 0.7rem;
+  }
+}
+
+.route {
+  color: var(--background-color);
+  padding-left: 0.5rem;
+  background-color: white;
+}
+
+.data {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.time {
+  margin-top: 0.5rem;
+
+  & p {
+    text-align: right;
+  }
+}

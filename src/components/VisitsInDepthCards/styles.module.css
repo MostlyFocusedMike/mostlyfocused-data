@@ -1,0 +1,5 @@
+.cards {
+  display: flex;
+  overflow: scroll;
+  gap: 1rem;
+}

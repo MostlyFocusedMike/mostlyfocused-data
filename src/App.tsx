@@ -1,9 +1,9 @@
 import MonthRouteVisitsSection from "./components/MonthRouteVisitsSection";
 import MainRouteTotalsTable from "./components/MainRouteTotalsTable";
 import MainReferrerTotalsTable from "./components/MainReferrerTotalsTable";
+import VisitsInDepthCards from './components/VisitsInDepthCards';
 import { useGetMonthlyViews } from "./api/get-monthly-views";
 import { useGetLifetimeTotals } from "./api/lifetime-totals";
-import VisitsInDepthCards from "./components/VisitsInDepthCards";
 
 function App() {
   const { data: lifetimeTotals } = useGetLifetimeTotals();
