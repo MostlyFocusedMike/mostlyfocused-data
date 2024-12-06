@@ -1,4 +1,3 @@
-import 'core-js/proposals/array-grouping-v2' // TODO: remove groupBy polyfill dec 2026
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'

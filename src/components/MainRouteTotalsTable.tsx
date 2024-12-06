@@ -1,4 +1,5 @@
 import { LifetimeAndMonthRouteTotal, LifetimeRouteTotal, Visit } from "../types";
+import { groupBy } from "../utils";
 import RouteVisitsModal from "./modals/RouteVisitsModal";
 import RouteLink from "./RouteLink";
 
@@ -20,7 +21,7 @@ export default function MainRouteTotalsTable(props: Props) {
     return routeTotal;
   };
 
-  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ route }) => route); // TODO: remove polyfill dec 2026
+  const monthVisitsByRoute = groupBy(monthlyVisits, ({ route }) => route); // TODO: remove polyfill dec 2026
 
   const lifetimeAndMonthTotals = (structuredClone(routeTotals) as LifetimeAndMonthRouteTotal[])
     .map(addMonthVisits)

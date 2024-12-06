@@ -73,3 +73,18 @@ export const getNumOfVisitsPerDay = (visits: Visit[]): [DateOpt[], ValueObj[], n
 
   return [dates, values, maxY];
 };
+
+// polyfill style utils
+export const groupBy = <T, K extends string | number | symbol>(
+  array: T[],
+  keySelector: (item: T) => K
+): Record<K, T[]> => {
+  return array.reduce((grouped, item) => {
+    const key = keySelector(item);
+    if (!grouped[key]) {
+      grouped[key] = [];
+    }
+    grouped[key].push(item);
+    return grouped;
+  }, {} as Record<K, T[]>);
+}
