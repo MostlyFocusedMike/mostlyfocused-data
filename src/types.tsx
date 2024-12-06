@@ -32,10 +32,10 @@ export type Visit = {
   id: number;
   ipUuid: string;
   route: string;
-  referrer: string;
-  country: string;
-  countryCode: string;
-  state: string;
+  referrer: string | null;
+  country: string | null;
+  countryCode: string | null;
+  state: string | null;
   timestamp: string;
 }
 
