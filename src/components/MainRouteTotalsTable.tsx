@@ -20,7 +20,7 @@ export default function MainRouteTotalsTable(props: Props) {
     return routeTotal;
   };
 
-  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ route }) => route);
+  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ route }) => route); // TODO: remove polyfill dec 2026
 
   const lifetimeAndMonthTotals = (structuredClone(routeTotals) as LifetimeAndMonthRouteTotal[])
     .map(addMonthVisits)

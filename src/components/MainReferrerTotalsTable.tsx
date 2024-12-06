@@ -18,7 +18,7 @@ export default function MainReferrerTotalsTable(props: Props) {
   };
 
 
-  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ referrer }) => referrer);
+  const monthVisitsByRoute = Object.groupBy(monthlyVisits, ({ referrer }) => referrer || ''); // TODO: remove polyfill dec 2026
 
   const lifetimeAndMonthTotals = (structuredClone(referrerTotals) as LifetimeAndMonthReferrerTotal[])
     .map(addMonthVisits)

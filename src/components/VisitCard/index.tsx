@@ -8,7 +8,7 @@ export default function VisitCard({ visit }: Props) {
   return <li className={styles.visitCard}>
     <p className={styles.route}><strong>{trimRoute(route)}</strong></p>
     <div className={styles.data}>
-      <p title={referrer}><em>{referrer || 'No referrer'}</em></p>
+      <p title={referrer || undefined}><em>{referrer || 'No referrer'}</em></p>
       <p className={styles.ipUuid}>{ipUuid}</p>
       <div className={styles.time}>
         <p>{new Date(timestamp).toLocaleString('en-US')}</p>
