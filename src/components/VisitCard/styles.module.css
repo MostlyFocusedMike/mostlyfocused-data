@@ -9,6 +9,7 @@
 
   & p {
     font-size: 0.9rem;
+    white-space: nowrap;
     margin: 0
   }
 
@@ -21,7 +22,6 @@
   color: var(--background-color);
   padding-left: 0.5rem;
   background-color: white;
-  background-clip: border-box;
 }
 
 .data {
