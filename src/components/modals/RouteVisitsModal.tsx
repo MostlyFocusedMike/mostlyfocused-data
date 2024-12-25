@@ -1,6 +1,7 @@
 import { useGetMonthlyViews } from "../../api/get-monthly-views";
-import { formatRouteName } from "../../utils";
+import { trimRoute } from "../../utils";
 import VisitsByRouteChart from "../charts/VisitsByRouteChart";
+import ReferrerByRouteTable from "../ReferrerByRouteTable";
 import Modal from "./Modal";
 
 export default function RouteVisitsModal({ route }: { route: string; }) {
@@ -11,8 +12,9 @@ export default function RouteVisitsModal({ route }: { route: string; }) {
 
   return <Modal
     openBtnText={route}
-    heading={formatRouteName(route)}
+    heading={trimRoute(route)}
   >
     <VisitsByRouteChart visits={routeVisits} />
+    <ReferrerByRouteTable visits={routeVisits} route={route} />
   </Modal>
 }

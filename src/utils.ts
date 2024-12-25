@@ -6,10 +6,8 @@ export const trimRoute = (route: string) => {
   return route.replace('/pages/articles', '');
 }
 
-export const formatRouteName = (route: string) => {
-  if (route === '/') return 'mostlyfocused.com'
-  if (route === '/pages/articles/') return '/articles'
-  return route.replace('/pages/articles', '');
+export const trimReferrer = (referrer: string) => {
+  return referrer.replace(/https?:\/\/(www\.)?/, '')
 }
 
 export const dateStr = (dateString: string) => {

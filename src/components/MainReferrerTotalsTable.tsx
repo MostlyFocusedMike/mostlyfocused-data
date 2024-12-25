@@ -25,7 +25,7 @@ export default function MainReferrerTotalsTable(props: Props) {
     .map(addMonthVisits)
     .toSorted((a, b) => b.monthTotal - a.monthTotal);
 
-  return <section aria-describedby="referrer-totals-table">
+  return <section aria-labelledby="referrer-totals-table">
     <h2 id='referrer-totals-table'>Referrer Totals Count</h2>
     <table>
       <thead>
