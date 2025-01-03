@@ -14,20 +14,17 @@ export default function Modal({
   handleClose,
   children
 }: Props) {
-  console.log('I Load up:',);
   const [isVisible, setIsVisible] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const formId = useId();
 
   useEffect(() => {
-    console.log('heading:', heading);
-    console.log('searchParams.get:', searchParams.get('route'));
-    console.log('decodeURIComponent(searchParams.get:', decodeURIComponent(searchParams.get('route') || ''));
     const currentRoute = decodeURIComponent(searchParams.get('route') || '');
     if (currentRoute === heading) {
       setIsVisible(true);
-      dialogRef?.current?.showModal()
+      console.log('dialogRef?.current:', dialogRef?.current);
+      dialogRef?.current?.showModal?.()
     }
   }, [searchParams, heading]);
 
