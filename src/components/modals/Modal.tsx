@@ -23,17 +23,13 @@ export default function Modal({
     const currentRoute = decodeURIComponent(searchParams.get('route') || '');
     if (currentRoute === heading) {
       setIsVisible(true);
-      console.log('dialogRef?.current:', dialogRef?.current);
-      dialogRef?.current?.showModal?.()
+      dialogRef.current?.showModal()
     }
   }, [searchParams, heading]);
 
   const handleOpenClick = () => {
-    setIsVisible(true);
-    console.log('heading:', heading);
     searchParams.set('route', encodeURIComponent(heading));
     setSearchParams(searchParams);
-    dialogRef?.current?.showModal();
   };
 
   const _handleClose = (e: React.SyntheticEvent<HTMLDialogElement>) => {
