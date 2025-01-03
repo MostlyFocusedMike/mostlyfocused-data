@@ -21,6 +21,9 @@ export default function Modal({
   const formId = useId();
 
   useEffect(() => {
+    console.log('heading:', heading);
+    console.log('searchParams.get:', searchParams.get('route'));
+    console.log('decodeURIComponent(searchParams.get:', decodeURIComponent(searchParams.get('route') || ''));
     const currentRoute = decodeURIComponent(searchParams.get('route') || '');
     if (currentRoute === heading) {
       setIsVisible(true);
