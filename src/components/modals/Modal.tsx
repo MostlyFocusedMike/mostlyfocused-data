@@ -20,15 +20,23 @@ export default function Modal({
   const formId = useId();
 
   useEffect(() => {
-    const currentRoute = decodeURIComponent(searchParams.get('route') || '');
-    if (currentRoute === heading) {
-      setIsVisible(true);
-      dialogRef?.current?.showModal()
+    try {
+      console.log('searchParams.get:', searchParams.get('route'));
+      console.log('blank:', decodeURIComponent(''));
+      const currentRoute = decodeURIComponent(searchParams.get('route') || '');
+      console.log('currentRoute:', currentRoute);
+      if (currentRoute === heading) {
+        setIsVisible(true);
+        dialogRef?.current?.showModal()
+      }
+    } catch (error) {
+      console.log('error:', error);
     }
   }, [searchParams, heading]);
 
   const handleOpenClick = () => {
     setIsVisible(true);
+    console.log('heading:', heading);
     searchParams.set('route', encodeURIComponent(heading));
     setSearchParams(searchParams);
     dialogRef?.current?.showModal();
